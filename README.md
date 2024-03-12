@@ -33,11 +33,11 @@ En el ejercicio 2 se solicita un endpoint que responda y reciba en formato JSON.
 Ejemplo:
 ```
 @GetMapping
-    public ResponseEntity<Object> getTransactionFee(
-            @RequestParam("cardName") Brand brand,
-            @RequestParam("transactionAmount") Double transactionAmount) {
-        return ResponseEntity.ok(
-                transactionService.getTransactionFee(brand, transactionAmount)
-        );
-    }
+public ResponseEntity<Object> getTransactionFee(
+        @RequestParam("cardName") Brand brand,
+        @RequestParam("transactionAmount") Double transactionAmount) {
+    return ResponseEntity.ok(
+            transactionService.getTransactionFee(brand, transactionAmount)
+    );
+}
 ```
