@@ -1,10 +1,10 @@
 package com.example.eldar.exception;
 
 import com.example.eldar.dto.ApiError;
-import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,6 +33,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<Object> handleNullPointerException(NullPointerException e) {
+        String errorMessage = e.getLocalizedMessage();
+        log.error("Error with message: {}", errorMessage);
+        ApiError apiError = new ApiError(errorMessage, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.badRequest().body(apiError);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         String errorMessage = e.getLocalizedMessage();
         log.error("Error with message: {}", errorMessage);
         ApiError apiError = new ApiError(errorMessage, HttpStatus.BAD_REQUEST.value());

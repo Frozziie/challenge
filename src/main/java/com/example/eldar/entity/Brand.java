@@ -3,10 +3,6 @@ package com.example.eldar.entity;
 import com.example.eldar.exception.CardBrandException;
 import com.example.eldar.utils.Constants;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDateTime;
 
