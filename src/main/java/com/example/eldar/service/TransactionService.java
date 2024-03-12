@@ -4,6 +4,8 @@ import com.example.eldar.dto.TransactionDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import static com.example.eldar.utils.Tools.formatNumberWithDecimals;
+
 @Service
 @Slf4j
 public class TransactionService {
@@ -12,7 +14,9 @@ public class TransactionService {
 
         log.info("Request with the following values: {}", dto.toString());
 
-        dto.setTransactionFee(dto.getTransactionAmount() * dto.getCardBrand().getFee());
+        Double fee = formatNumberWithDecimals(dto.getTransactionAmount() * dto.getCardBrand().getFee());
+        dto.setTransactionFee(fee);
+
         return dto;
     }
 }

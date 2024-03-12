@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.text.ParseException;
 import java.util.Objects;
 
 @Slf4j
@@ -41,6 +42,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        String errorMessage = e.getLocalizedMessage();
+        log.error("Error with message: {}", errorMessage);
+        ApiError apiError = new ApiError(errorMessage, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.badRequest().body(apiError);
+    }
+
+    @ExceptionHandler(ParseException.class)
+    public ResponseEntity<Object> handleParseException(ParseException e) {
         String errorMessage = e.getLocalizedMessage();
         log.error("Error with message: {}", errorMessage);
         ApiError apiError = new ApiError(errorMessage, HttpStatus.BAD_REQUEST.value());
