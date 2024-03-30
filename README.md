@@ -1,4 +1,4 @@
-# Eldar Challenge
+# Challenge
 
 ## API Request
 Obtener el costo de una transacción con las siguientes marcas de tarjeta:
